@@ -1,24 +1,48 @@
-<h1>Weather forecast</h1>
+<h1>Loan calculator</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>This component demonstrates calculation of installments for loan.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
+<button pButton type="button" class="p-button-info" aria-label="Generate installments"
+(click)="calculateInstallments()"></button>
 
-<table class='table' *ngIf="forecasts">
+<button (click)="calculateInstallments()">Generate installments</button>
+
+<p *ngIf="!installments"><em></em></p>
+
+<table class='table' *ngIf="installments">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>Month of payment</th>
+      <th>Pricipal value</th>
+      <th>Interest value</th>
+      <th>Total intallment value</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.dateFormatted }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let installment of installments">
+      <td>{{ installment.month }}</td>
+      <td>{{ installment.principal }}</td>
+      <td>{{ installment.interest }}</td>
+      <td>{{ installment.installmentAmount }}</td>
     </tr>
   </tbody>
 </table>
+<!--<p-table [value]="installments">
+  <ng-template pTemplate="header">
+          <tr>
+            <th>Month of payment</th>
+            <th>Pricipal value</th>
+            <th>Interest value</th>
+            <th>Total intallment value</th>         
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-installment>
+          <tr>
+            <td>{{ installment.month }}</td>
+            <td>{{ installment.principal }}</td>
+            <td>{{ installment.interest }}</td>
+            <td>{{ installment.installmentAmount }}</td>        
+          </tr>
+      </ng-template>
+    </p-table>
+  -->
