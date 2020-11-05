@@ -12,13 +12,16 @@ namespace LoanProject.Controllers
   {
     private IPaymentGenerator _paymentGenerator;
 
+    public LoanCalculatorController()
+    {
+        PaymentGeneratorsFactory factory = new PaymentGeneratorsFactory();
+        _paymentGenerator = factory.CreatePaymentGenerator(PaymentStrategy.DecreasingInstallments);
+    }
+
     [HttpPost]
     [Route("[action]")]
     public async Task<IActionResult> GenerateInstallments([FromBody] Loan loanModel)
     {
-      PaymentGeneratorsFactory factory = new PaymentGeneratorsFactory();
-      _paymentGenerator = factory.CreatePaymentGenerator(PaymentStrategy.DecreasingInstallments, loanModel);
-
       var installments = await Task.FromResult(_paymentGenerator.GenerateInstallments(loanModel));
       if (installments.Any())
       {
@@ -26,6 +29,14 @@ namespace LoanProject.Controllers
       }
 
       return NoContent();
+    }
+
+    [HttpGet]
+    [Route("[action]")]
+    public async Task<IActionResult> GetInterestRate()
+    {
+      var interestRate = await Task.FromResult(_paymentGenerator.GetInterestRate());
+      return Ok(interestRate);
     }
   }
 }

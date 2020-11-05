@@ -2,12 +2,23 @@
 
 <p>This component demonstrates calculation of installments for loan.</p>
 
-<button pButton type="button" class="p-button-info" aria-label="Generate installments"
-(click)="calculateInstallments()"></button>
+<div class="content-section details">
+  <div class="card">
+      <h5>Amount of loan: {{loanInfo.amount}}</h5>
+      <input type="text" pInputText [(ngModel)]="loanInfo.amount"/>
+      <p-slider [(ngModel)]="loanInfo.amount" [min]="0" [max]="500000" [step]="50000"></p-slider>
+  
+      <h5>Payment years: {{loanInfo.paymentYears}}</h5>
+      <input type="text" pInputText [(ngModel)]="loanInfo.paymentYears"/>
+      <p-slider [(ngModel)]="loanInfo.paymentYears"></p-slider>
 
-<button (click)="calculateInstallments()">Generate installments</button>
+      <h5>Interest rate: {{interestRate}} %</h5>
 
-<p *ngIf="!installments"><em></em></p>
+      <button (click)="calculateInstallments()">Generate installments</button>
+  </div>
+</div>
+
+<hr />
 
 <table class='table' *ngIf="installments">
   <thead>
@@ -27,22 +38,3 @@
     </tr>
   </tbody>
 </table>
-<!--<p-table [value]="installments">
-  <ng-template pTemplate="header">
-          <tr>
-            <th>Month of payment</th>
-            <th>Pricipal value</th>
-            <th>Interest value</th>
-            <th>Total intallment value</th>         
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-installment>
-          <tr>
-            <td>{{ installment.month }}</td>
-            <td>{{ installment.principal }}</td>
-            <td>{{ installment.interest }}</td>
-            <td>{{ installment.installmentAmount }}</td>        
-          </tr>
-      </ng-template>
-    </p-table>
-  -->

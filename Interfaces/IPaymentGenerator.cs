@@ -12,5 +12,11 @@ namespace LoanProject.Interfaces
     /// <param name="loan">Information about <see cref="Loan"/></param>
     /// <returns></returns>
     List<Installment> GenerateInstallments(Loan loan);
+
+    /// <summary>
+    /// Return fixed interest rate for generator
+    /// basing on information in loan
+    /// </summary>
+    float GetInterestRate();
   }
 }

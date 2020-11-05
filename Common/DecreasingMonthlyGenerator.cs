@@ -15,6 +15,11 @@ namespace LoanProject.Common
     /// </summary>
     private float _yearInterest = 3.5f;
 
+    public float GetInterestRate()
+    {
+      return _yearInterest;
+    }
+    
     public List<Installment> GenerateInstallments(Loan loan)
     {
       var result = new List<Installment>();

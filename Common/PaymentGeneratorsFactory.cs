@@ -12,9 +12,8 @@ namespace LoanProject.Common
     /// Create instance of generator dependent on payment strategy
     /// </summary>
     /// <param name="paymentStrategy"><see cref="PaymentStrategy"/></param>
-    /// <param name="loan"><see cref="Loan"/></param>
     /// <returns></returns>
-    public virtual IPaymentGenerator CreatePaymentGenerator(PaymentStrategy paymentStrategy, Loan loan)
+    public virtual IPaymentGenerator CreatePaymentGenerator(PaymentStrategy paymentStrategy)
     {
       IPaymentGenerator gateway = null;
       switch (paymentStrategy)

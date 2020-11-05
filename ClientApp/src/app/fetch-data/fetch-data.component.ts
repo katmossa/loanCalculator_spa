@@ -9,25 +9,35 @@ export class FetchDataComponent {
   public installments: Installment[];
   private readonly baseUrl: string;
   private readonly loadnCalculatorCtrl: string;
+  private interestRate: number;
+  public loanInfo: Loan;
   private http: HttpClient;
-
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     this.http = http;
     this.loadnCalculatorCtrl = 'api/LoanCalculator'
-  }
-
-  public calculateInstallments() {
-    const requestUrl = `${this.baseUrl}${this.loadnCalculatorCtrl}/GenerateInstallments`;
-    const loanValues = {
+    this.loanInfo = {
       amount: 500000,
       paymentYears: 30,
       PaymentStrategy: PaymentStrategy.DecreasingInstallments
     } as Loan;
+    this.getInterestRate();
+  }
 
-    this.http.post<Installment[]>(requestUrl, loanValues ).subscribe(result => {
+  public calculateInstallments() {
+    const requestUrl = `${this.baseUrl}${this.loadnCalculatorCtrl}/GenerateInstallments`;
+
+    this.http.post<Installment[]>(requestUrl, this.loanInfo ).subscribe(result => {
       this.installments = result;
+    }, error => console.error(error));
+  }
+
+  private getInterestRate() {
+    const requestUrl = `${this.baseUrl}${this.loadnCalculatorCtrl}/GetInterestRate`;
+
+    this.http.get(requestUrl ).subscribe(result => {
+      this.interestRate = result as number;;
     }, error => console.error(error));
   }
 }
